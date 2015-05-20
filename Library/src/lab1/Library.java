@@ -3,7 +3,7 @@ package lab1;
 /**
  * A representation of a library of books.
  *
- * @author jianlang lin
+ * @author jianlang lin,Ziying Guo
  */
 public class Library {
 
