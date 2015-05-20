@@ -2,10 +2,82 @@ package lab1;
 
 /**
  * A representation of a library of books.
- * @author <a href="mailto:rkhatchadourian@citytech.cuny.edu">Raffi Khatchadourian</a>.
+ *
+ * @author jianlang lin
  */
 public class Library {
-    // TODO: Add the missing implementation to this class
+
+    String library_address;
+    static String library_hours = "Libraries are open daily from 9AM to 5PM";
+    Book[] catalog = new Book[0];
+    int numberofBooks = 0;
+
+//List of Methods for Libraries
+    public Library(String address) {
+        library_address = address;
+    }
+
+    public static void printOpeningHours() {
+        System.out.println(library_hours);
+    }
+
+    public void printAddress() {
+        System.out.println(library_address);
+    }
+
+    //Add books to library catalog
+    public void addBook(Book newbook) {
+        if (numberofBooks >= 0) {
+            Book[] newarray = new Book[(numberofBooks + 1)];
+            System.arraycopy(catalog, 0, newarray, 0, numberofBooks);
+            catalog = newarray;
+        }
+        catalog[numberofBooks] = newbook;
+        numberofBooks++;
+    }
+
+//Check out book from catalog
+    public void borrowBook(String title) {
+        String string1 = title;
+        if (catalog.length == 0) {
+            System.out.println("Sorry, this book is not in our catalog");
+        }
+        for (int i = 0; i <numberofBooks ; i++) {
+            if ((string1.equals(catalog[i].getTitle())) && (catalog[i].isBorrowed() == false)) {
+                catalog[i].isBorrowed();
+                System.out.println("You successfully borrowed " + catalog[i].getTitle());
+                break;
+            } else if (string1.equals(catalog[i].getTitle()) && catalog[i].isBorrowed() == true) {
+                System.out.println("Sorry, this book is already borrowed.");
+                break;
+            } else if (string1.equals(catalog[i].getTitle()) == false) {
+                System.out.println("Sorry, this book is not in our catalog");
+                break;
+            }
+        }
+    }
+
+    //Return book to library
+    public void returnBook(String title) {
+        String string1 = title;
+        for (int i = 0; i < catalog.length; i++) {
+            if (string1.equals(catalog[i].getTitle()) && catalog[i].isBorrowed() == true) {
+                catalog[i].returned();
+                System.out.println("You successfully returned " + catalog[i].getTitle());
+                break;
+            }
+        }
+    }
+
+    public void printAvailableBooks() {
+        if (catalog.length > 0) {
+            for (int i = 0; i < numberofBooks; i++) {
+                System.out.println(catalog[i].getTitle());
+            }
+        } else {
+            System.out.println("No books in catalog currently.");
+        }
+    }
 
     public static void main(String[] args) {
         // Create two libraries
